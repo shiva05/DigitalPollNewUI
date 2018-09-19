@@ -12,6 +12,9 @@ html {
     font-size: 9px !important;
   }
 }
+/*app-root {
+  width: 100%;
+}*/
 
 html, body, ul, ol {
   margin: 0px;
@@ -33,9 +36,9 @@ ul {
 body {
   font-size: 1.6rem;
   line-height: 1.6;
-  display: flex;
+  /*display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start;*/
 
   &.modal-open {
     overflow: hidden;
@@ -174,7 +177,6 @@ a {
 .poll-container {
   display: flex;
   flex-flow: column;
-  width: 100%;
 
   .navbar, footer {
     padding-left: 50px;

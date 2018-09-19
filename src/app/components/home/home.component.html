@@ -1,48 +1,5 @@
 <div class="poll-container">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar top-bar"></span>
-          <span class="icon-bar middle-bar"></span>
-          <span class="icon-bar bottom-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.html">
-          Digital Poll
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <div class="form-group">
-              <select class="form-control">
-                <option>Andhra Pradesh</option>
-                <option>Telangana</option>
-              </select>
-            </div>
-          </li>
-          <li>
-            <div class="form-group">
-              <select class="form-control">
-                <option>Kuppam</option>
-                <option>Palamaner</option>
-              </select>
-            </div>
-          </li>
-          <li>
-            <div class="form-group">
-              <select class="form-control">
-                <option>517425</option>
-                <option>517408</option>
-              </select>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <app-header></app-header>
   <div class="main-container">
     <div class="section-container">
       <h1>National Politics</h1>
@@ -124,8 +81,8 @@
           </div>
           <div class="member-tile">
             <div class="member-tile-img-wrap">
-              <img class="member-tile-img img-responsive" src="../../../assets/images/pawan-kalyan.jpeg" alt="Pawan Kalyan" class="img-responsive">
-              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/janasena.jpg" alt="janasena-flag" class="img-responsive">
+              <img class="member-tile-img img-responsive" src="../../../assets/images/pawan-kalyan.jpeg" alt="Pawan Kalyan">
+              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/janasena.jpg" alt="janasena-flag">
             </div>
             <div class="member-tile-content">
               <h3>Pawan Kalyan</h3>
@@ -187,10 +144,84 @@
       </div>
     </div>
   </div>
-  <footer>
-    <a class="navbar-brand" href="#">
-      Digital Poll
-    </a>
-    <p>2018 &copy; Copyrights reserved.</p>
-  </footer>
+  <app-footer></app-footer>
 </div>
+
+<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">Welcome to Digital Poll</h2>
+      </div>
+      <div class="modal-body">
+        <form class="col-xs-12">
+          <div class="row">
+            
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <label for="exampleInputName2">Full Name</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                      </div>
+                      <div class="form-group">
+                        <div>
+                          <label for="exampleInputMobile">Mobile</label>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-8">
+                            <input type="text" class="form-control" id="exampleInputMobile" placeholder="Mobile Number">
+                          </div>
+                          <div class="col-xs-4 otp-btn">
+                            <button type="submit" class="btn btn-primary">Send OTP</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputMobileOtp">Enter OTP</label>
+                        <input type="text" class="form-control" id="exampleInputOtp" placeholder="Enter OTP">
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail2">Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">State</label>
+                        <select class="form-control">
+                          <option>Andhra Pradesh</option>
+                          <option>Telangana</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Pincode
+                          </label>
+                          <label>
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"> Constituency
+                          </label>
+                        </div>
+                        <input type="text" class="form-control" id="exampleInputPincode" placeholder="Pincode">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </form>
+        <div class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade in"></div>
+
