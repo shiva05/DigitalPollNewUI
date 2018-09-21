@@ -6,18 +6,28 @@ import { HomeComponent } from './components/home/home.component';
 import { RoutingModule } from './components/routing/routing.module';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SurveyComponent } from './components/survey/survey.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule }   from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SurveyComponent,
+    
   ],
   imports: [
     BrowserModule,
     RouterModule,
-    RoutingModule
+    RoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule      
   ],
   providers: [],
   bootstrap: [AppComponent]

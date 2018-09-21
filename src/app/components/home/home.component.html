@@ -2,10 +2,31 @@
   <app-header></app-header>
   <div class="main-container">
     <div class="section-container">
+      <!--
       <h1>National Politics</h1>
+      
       <div class="inner-container row">
         <h2>Top PM Candidates</h2>
-        <div class="member">
+        <div class="member" *ngIf="pmCandidate | async as candidates else empty">
+            <div  class="member-tile" *ngFor="let candidate of candidates">
+                <div class="member-tile-img-wrap">                  
+                  <img class="member-tile-img img-responsive" src="{{candidate.candidateImg}}" alt="{{candidate.candidateImgAlt}}">
+                  <img class="member-tile-img-flag img-responsive" src="{{candidate.partyFlag}}" alt="{{candidate.partFlagAlt}}">
+                </div>
+                <div class="member-tile-content">
+                   <h3>{{candidate.name}}</h3>
+                  <p>Prime Minister of India</p>
+                </div>
+                <div class="member-tile-footer">
+                  <div class="member-tile-likes">
+                    <img src="../../../assets/images/like-symbol.png" alt="Like">
+                    <span>{{candidate.poll}}</span>
+                  </div>
+                </div>
+              </div>
+
+
+          
           <div class="member-tile">
             <div class="member-tile-img-wrap">
               <img class="member-tile-img img-responsive" src="../../../assets/images/modi.jpg" alt="Narendra Modi">
@@ -38,22 +59,25 @@
               </div>
             </div>
           </div>
+       
         </div>
+         
       </div>
+    -->
       <hr>
       <h1>State Politics</h1>
       <div class="inner-container row">
         <h2>TOP CM Candidates</h2>
-        <div class="member">
-          <div class="member-tile">
-            <div class="member-tile-img-wrap">
-              <img class="member-tile-img img-responsive" src="../../../assets/images/chandrababu-naidu.jpg" alt="Chandrababu Naidu">
-              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/tdp.jpeg" alt="tdp-flag">
+        <div class="member"  *ngIf="landingContent | async as landingPage else empty">
+          <div class="member-tile" *ngFor="let pagecontent of landingPage._Data.CMCandidates">           
+            <div class="member-tile-img-wrap" >
+              <img class="member-tile-img img-responsive" src="../../../assets/images/candidates/{{pagecontent.EPMemberImg}}" alt="{{pagecontent.CandidateName}}">
+              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/partyFlags/{{pagecontent.ElectoralPartyImage}}" alt="{{pagecontent.ElectoralPartyName}}">
             </div>
             <div class="member-tile-content">
-              <h3>Nara Chandrababu Naidu</h3>
-              <p>Leader, President, Chairperson, Parliamentary Chairperson, Chief Minister of Andhra Pradesh</p>
-              <p><strong>Kuppam Constituency</strong></p>
+              <h3>{{pagecontent.CandidateName}}</h3>
+              <!-- <p>Leader, President, Chairperson, Parliamentary Chairperson, Chief Minister of Andhra Pradesh</p>
+              <p><strong>Kuppam Constituency</strong></p> -->
             </div>
             <div class="member-tile-footer">
               <div class="member-tile-likes">
@@ -61,46 +85,66 @@
                 <span>48%</span>
               </div>
             </div>
-          </div>
-          <div class="member-tile">
-            <div class="member-tile-img-wrap">
-              <img class="member-tile-img img-responsive" src="../../../assets/images/jagan.jpg" alt="Jaganmohan Reddy">
-              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/ysrcp.jpg" alt="ysrcp-flag">
-            </div>
-            <div class="member-tile-content">
-              <h3>Y. S. Jaganmohan Reddy</h3>
-              <p>Leader of Opposition in Andhra Pradesh, Legislative Assembly, Member of the India Parliament (Kadapa)</p>
-              <p><strong>Kuppam Constituency</strong></p>
-            </div>
-            <div class="member-tile-footer">
-              <div class="member-tile-likes">
-                <img src="../../../assets/images/like-symbol.png" alt="Like">
-                <span>34%</span>
-              </div>
-            </div>
-          </div>
-          <div class="member-tile">
-            <div class="member-tile-img-wrap">
-              <img class="member-tile-img img-responsive" src="../../../assets/images/pawan-kalyan.jpeg" alt="Pawan Kalyan">
-              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/janasena.jpg" alt="janasena-flag">
-            </div>
-            <div class="member-tile-content">
-              <h3>Pawan Kalyan</h3>
-              <p>Leader and Founder of Janasena Party</p>
-              <p><strong>Kuppam Constituency</strong></p>
-            </div>
-            <div class="member-tile-footer">
-              <div class="member-tile-likes">
-                <img src="../../../assets/images/like-symbol.png" alt="Like">
-                <span>18%</span>
-              </div>
-            </div>
-          </div>
+          </div>          
         </div>
       </div>
+
+
+      <hr>
+      <h1>MLA Candidate</h1>
+      <div class="inner-container row">
+        <h2>MLA Candidate List</h2>
+        <div class="member"  *ngIf="landingContent | async as landingPage else empty">
+          <div class="member-tile" *ngFor="let pagecontent of landingPage._Data.Assembly">           
+            <div class="member-tile-img-wrap" >
+              <img class="member-tile-img img-responsive" src="../../../assets/images/candidates/{{pagecontent.EPMemberImg}}" alt="{{pagecontent.CandidateName}}">
+              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/partyFlags/{{pagecontent.ElectoralPartyImage}}" alt="{{pagecontent.ElectoralPartyName}}">
+            </div>
+            <div class="member-tile-content">
+              <h3>{{pagecontent.CandidateName}}</h3>
+              <!-- <p>Leader, President, Chairperson, Parliamentary Chairperson, Chief Minister of Andhra Pradesh</p>
+              <p><strong>Kuppam Constituency</strong></p> -->
+            </div>
+            <div class="member-tile-footer">
+              <div class="member-tile-likes">
+                <img src="../../../assets/images/like-symbol.png" alt="Like">
+                <span>48%</span>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+
+
+      <hr>
+      <h1>MP Candidate</h1>
+      <div class="inner-container row">
+        <h2>MP Candidate List</h2>
+        <div class="member"  *ngIf="landingContent | async as landingPage else empty">
+          <div class="member-tile" *ngFor="let pagecontent of landingPage._Data.MPCandidates">           
+            <div class="member-tile-img-wrap" >
+              <img class="member-tile-img img-responsive" src="../../../assets/images/candidates/{{pagecontent.EPMemberImg}}" alt="{{pagecontent.CandidateName}}">
+              <img class="member-tile-img-flag img-responsive" src="../../../assets/images/partyFlags/{{pagecontent.ElectoralPartyImage}}" alt="{{pagecontent.ElectoralPartyName}}">
+            </div>
+            <div class="member-tile-content">
+              <h3>{{pagecontent.CandidateName}}</h3>
+              <!-- <p>Leader, President, Chairperson, Parliamentary Chairperson, Chief Minister of Andhra Pradesh</p>
+              <p><strong>Kuppam Constituency</strong></p> -->
+            </div>
+            <div class="member-tile-footer">
+              <div class="member-tile-likes">
+                <img src="../../../assets/images/like-symbol.png" alt="Like">
+                <span>48%</span>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+
+
     </div>
     <div class="side-section">
-      <a href="survey.html" class="btn btn-primary">Take a Survey</a>
+      <a href="javascript:void(0)" routerLink="/survey" class="btn btn-primary">Take a Survey</a>
       <h2>Opinion Polls</h2>
       <div class="chart-wrap">
         <label>Who will you vote for as PM candidate if general elections were held today?</label>
@@ -147,6 +191,7 @@
   <app-footer></app-footer>
 </div>
 
+<form name="form" [formGroup]="registerForm" >
 <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -155,73 +200,101 @@
         <h2 class="modal-title">Welcome to Digital Poll</h2>
       </div>
       <div class="modal-body">
-        <form class="col-xs-12">
-          <div class="row">
-            
+        <div class="col-xs-12">
+          <div class="row">            
               <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12">                 
                   <div class="row">
                     <div class="col-xs-6">
                       <div class="form-group">
-                        <label for="exampleInputName2">Full Name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                      </div>
+                        <label for="fullNameHolder">Full Name</label>
+                        <input type="text" class="form-control" id="fullNameHolder" placeholder="Full Name" formControlName="FirstName" [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }" required >
+                        <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                            <div *ngIf="f.FirstName.errors.required">First Name is required</div>
+                        </div>
+                      
                       <div class="form-group">
                         <div>
                           <label for="exampleInputMobile">Mobile</label>
                         </div>
                         <div class="row">
                           <div class="col-xs-8">
-                            <input type="text" class="form-control" id="exampleInputMobile" placeholder="Mobile Number">
+                            <input type="text" class="form-control" id="exampleInputMobile" (keypress)="numberOnly($event)" placeholder="Mobile Number" formControlName="MobNumber" [ngClass]="{ 'is-invalid': submitted && f.MobNumber.errors }" required>
+                            <div *ngIf="submitted && f.MobNumber.errors" class="invalid-feedback">
+                                <div *ngIf="f.MobNumber.errors.required">Enter Valid Mobile Number</div>
+                                <div *ngIf="f.MobNumber.errors.customValidationService">Enter Valid  Number</div>
+                            </div>
+                            </div>
+                            <div class="col-xs-4 otp-btn">
+                                <button type="submit" class="btn btn-primary">Send OTP</button>
+                              </div>
                           </div>
-                          <div class="col-xs-4 otp-btn">
-                            <button type="submit" class="btn btn-primary">Send OTP</button>
-                          </div>
+
+                           
+
                         </div>
                       </div>
+                                         
                       <div class="form-group">
                         <label for="exampleInputMobileOtp">Enter OTP</label>
                         <input type="text" class="form-control" id="exampleInputOtp" placeholder="Enter OTP">
                       </div>
+                       
                     </div>
                     <div class="col-xs-6">
                       <div class="form-group">
                         <label for="exampleInputEmail2">Email</label>
-                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+                        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                            <div *ngIf="f.Email.errors.required">Email is required</div>
+                            <div *ngIf="f.Email.errors.email">Email must be a valid email address</div>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">State</label>
-                        <select class="form-control">
-                          <option>Andhra Pradesh</option>
-                          <option>Telangana</option>
+                        <select class="form-control" id="select_state" formControlName="StateID" *ngIf="stateDetails | async as stateInfo else empty">
+                          <option *ngFor="let stateItem of stateInfo" value={{stateItem.StateId}} [value]=StateID>{{stateItem.StateName}}</option>                          
                         </select>
                       </div>
 
                       <div class="form-group">
-                        <div class="radio">
-                          <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Pincode
-                          </label>
-                          <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"> Constituency
-                          </label>
+                        <div class="radio"> 
+                            <div class="col-xs-4">                         
+                              <input type="radio" formControlName="optionsRadios" checked id="optionsRadios1" [(ngModel)]="options" type="radio" [value]="true" [checked]="options"><span> Pincode  </span>
+                            </div>
+                            <div class="col-xs-4">
+                              <input type="radio" formControlName="optionsRadios"  id="optionsRadios2" [(ngModel)]="options" type="radio" [value]="false" [checked]="!options"> <span>Constituency</span>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" id="exampleInputPincode" placeholder="Pincode">
+                        <div *ngIf="options">
+                            <input type="text" class="form-control" formControlName="PincodeID" id="exampleInputPincode" name="Pincode" placeholder="Pincode" >
+                        </div>
+                        <div *ngIf="!options">
+                            <select class="form-control" formControlName="ConstituencyID" id="select_constituency" *ngIf="Constituency | async as constituencyItem else empty">
+                                <option *ngFor="let constituency of constituencyItem" value="{{constituency.ConstituencyId}}" [value]=ConstituencyID>{{constituency.ConstituencyName}}</option>                                
+                              </select>
+                        </div>
+                        
+                       
                       </div>
                     </div>
                   </div>
+                
                 </div>
               </div>
           </div>
-        </form>
+        
         <div class="clearfix"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" id="validate_user" (click)="getDetails($event)" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+
 </div>
+</div>
+</form>
 <div class="modal-backdrop fade in"></div>
 
