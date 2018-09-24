@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from "@angular/common/http";
 import {Observable} from 'rxjs';
-
+import { map, catchError } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
 
 class candidate{
    
 }
-class Constitute{   
-    StateID:any
+
+interface Constitute {
+    StateID:any;
+    
+    ConstituencyID: any;
+    ConstituencyName: any;
+  
 }
 class stateClass{
 }
@@ -31,6 +36,9 @@ export class HomeComponent implements OnInit {
     submitted = false;
     registernotrequired:FormGroup;
     validUser=true;
+    bypassDev=false;//Toggle to check initial screen be commented
+
+    
   constructor(private httpClient:HttpClient,private formBuilder: FormBuilder) {
     
    }
@@ -52,26 +60,28 @@ export class HomeComponent implements OnInit {
         StateID: ['', [Validators.required]],
         ConstituencyID:[''],
         PincodeID:[null],
-        optionsRadios:['', [Validators.required]],
+        optionsRadios:[''],
         PhoneAuthTokenInd:[null],
        
     }
     );
-   this.Constituency = this.httpClient
-            .get<Constitute[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/GetConstituency")
+
+
       
     this.stateDetails=this.httpClient
             .get<stateClass[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/GetAllstate");
 
-    /*this.landingContent = this.httpClient
-        .get<landingPageData[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/LandingPage?stateID=1&ConstituencyID=294&Pincode=null");*/
- 
+    if(this.bypassDev==true)
+    {
+    this.landingContent = this.httpClient
+        .get<landingPageData[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/LandingPage?stateID=1&ConstituencyID=294&Pincode=null");
+    this.validUser=false;
+    }
   }
   
  
   get f() { return this.registerForm.controls; }  
-  //get n(){return this.registerForm.validator; }
-  
+    
   numberOnly(event): boolean {      
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {        
@@ -87,9 +97,23 @@ export class HomeComponent implements OnInit {
   }
   stateChange(e){
       var $selStateIndex=e.selectedIndex;
-      var stateIndex = e[$selStateIndex].value;               
-      
+      var stateId = e[$selStateIndex].value;
+    this.Constituency = this.httpClient
+            .get<Constitute[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/GetConstituency")
+            .pipe(
+    map((model: any) => {        
+      var stateArr=[];
+      for (let item of model) {
+        if(item.StateID==stateId){
+            stateArr.push(item);
+        }
+    }
+      return stateArr;
+    })
+    
+  );
   }
+  
   getDetails(e:Event){   
     this.submitted = true; 
      if (this.registerForm.invalid) {        
@@ -129,6 +153,7 @@ export class HomeComponent implements OnInit {
             .get<landingPageData[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/LandingPage?stateID="+this.registerForm.value["StateID"]+"&ConstituencyID="+this.registerForm.value["ConstituencyID"]+"&Pincode=null");
         console.log("https://electionpollapi.azurewebsites.net/api/ElectionPoll/LandingPage?stateID="+this.registerForm.value["StateID"]+"&ConstituencyID="+this.registerForm.value["ConstituencyID"]+"&Pincode=null");
         this.validUser=false;
+        return false;
      }
      showAuthError(){
          alert("something went wrong");
