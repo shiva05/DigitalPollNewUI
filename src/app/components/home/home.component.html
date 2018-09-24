@@ -192,7 +192,7 @@
 </div>
 
 <form name="form" [formGroup]="registerForm" >
-<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block">
+<div class="modal fade in" id="myModal" *ngIf="validUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -221,8 +221,8 @@
                           <div class="col-xs-8">
                             <input type="text" class="form-control" id="exampleInputMobile" (keypress)="numberOnly($event)" placeholder="Mobile Number" formControlName="MobNumber" [ngClass]="{ 'is-invalid': submitted && f.MobNumber.errors }" required>
                             <div *ngIf="submitted && f.MobNumber.errors" class="invalid-feedback">
-                                <div *ngIf="f.MobNumber.errors.required">Enter Valid Mobile Number</div>
-                                <div *ngIf="f.MobNumber.errors.customValidationService">Enter Valid  Number</div>
+                                <div *ngIf="f.MobNumber.errors.required">Enter Mobile Number</div>
+                                <div *ngIf="f.MobNumber.errors.mobVal">Enter Valid Number</div>                                
                             </div>
                             </div>
                             <div class="col-xs-4 otp-btn">
@@ -252,9 +252,12 @@
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">State</label>
-                        <select class="form-control" id="select_state" formControlName="StateID" *ngIf="stateDetails | async as stateInfo else empty">
+                        <select class="form-control" id="select_state" formControlName="StateID" *ngIf="stateDetails | async as stateInfo else empty" [ngClass]="{ 'is-invalid': submitted && f.StateID.errors }" (change)="stateChange($event.target)">
                           <option *ngFor="let stateItem of stateInfo" value={{stateItem.StateId}} [value]=StateID>{{stateItem.StateName}}</option>                          
                         </select>
+                        <div *ngIf="submitted && f.StateID.errors" class="invalid-feedback">
+                          <div *ngIf="f.StateID.errors.required">State has to be Selected</div>
+                      </div>
                       </div>
 
                       <div class="form-group">
@@ -270,9 +273,12 @@
                             <input type="text" class="form-control" formControlName="PincodeID" id="exampleInputPincode" name="Pincode" placeholder="Pincode" >
                         </div>
                         <div *ngIf="!options">
-                            <select class="form-control" formControlName="ConstituencyID" id="select_constituency" *ngIf="Constituency | async as constituencyItem else empty">
+                            <select class="form-control" formControlName="ConstituencyID" id="select_constituency" *ngIf="Constituency | async as constituencyItem else empty" [ngClass]="{ 'is-invalid': submitted && f.ConstituencyID.errors }">
                                 <option *ngFor="let constituency of constituencyItem" value="{{constituency.ConstituencyId}}" [value]=ConstituencyID>{{constituency.ConstituencyName}}</option>                                
                               </select>
+                              <div *ngIf="submitted && f.ConstituencyID.errors" class="invalid-feedback">
+                                <div *ngIf="n.validator.ConstituencyCtrl.errors">Constituency has to be Selected</div>
+                            </div>
                         </div>
                         
                        
@@ -296,5 +302,5 @@
 </div>
 </div>
 </form>
-<div class="modal-backdrop fade in"></div>
+<div class="modal-backdrop fade in" id="modal-backdrop" *ngIf="validUser" ></div>
 
