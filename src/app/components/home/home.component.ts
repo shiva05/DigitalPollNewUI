@@ -3,6 +3,7 @@ import { HttpClient,HttpHeaders } from "@angular/common/http";
 import {Observable} from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
+import { DataService } from "../data.service";
 
 class candidate{
    
@@ -37,9 +38,11 @@ export class HomeComponent implements OnInit {
     registernotrequired:FormGroup;
     validUser=true;
     bypassDev=false;//Toggle to check initial screen be commented
-
+    StateId="";
+    ConstituencyId="";
+    message:any ={};
     
-  constructor(private httpClient:HttpClient,private formBuilder: FormBuilder) {
+  constructor(private httpClient:HttpClient,private formBuilder: FormBuilder,private data: DataService) {
     
    }
    mobValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -63,11 +66,8 @@ export class HomeComponent implements OnInit {
         optionsRadios:[''],
         PhoneAuthTokenInd:[null],
        
-    }
-    );
-
-
-      
+    });
+   
     this.stateDetails=this.httpClient
             .get<stateClass[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/GetAllstate");
 
@@ -122,12 +122,11 @@ export class HomeComponent implements OnInit {
          }
     else{
         this.registerForm["PhoneAuthTokenInd"]=1;         
-        delete this.registerForm.value["optionsRadios"];    
-        console.log(this.registerForm.value);          
+        delete this.registerForm.value["optionsRadios"];            
         this.httpClient.post("https://electionpollapi.azurewebsites.net/api/ElectionPoll/SaveProfile", this.registerForm.value)
          .subscribe(             
              data => {   
-                 if(data==1)
+                 if(data>1)
                  {
                     console.log("success");
                     this.loadLandingPageData();   
@@ -147,14 +146,21 @@ export class HomeComponent implements OnInit {
     
             
      }
-
+     
      loadLandingPageData(){        
         this.landingContent = this.httpClient
             .get<landingPageData[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/LandingPage?stateID="+this.registerForm.value["StateID"]+"&ConstituencyID="+this.registerForm.value["ConstituencyID"]+"&Pincode=null");
         console.log("https://electionpollapi.azurewebsites.net/api/ElectionPoll/LandingPage?stateID="+this.registerForm.value["StateID"]+"&ConstituencyID="+this.registerForm.value["ConstituencyID"]+"&Pincode=null");
         this.validUser=false;
+        this.StateId= this.registerForm.value["StateID"];   
+        this.ConstituencyId=this.registerForm.value["ConstituencyID"];          
         return false;
      }
+     newMessage() {
+        this.message["StateId"]=this.StateId;        
+        this.message["ConstituencyId"]=this.ConstituencyId;        
+        this.data.changeMessage(this.message)       
+      }
      showAuthError(){
          alert("something went wrong");
      }

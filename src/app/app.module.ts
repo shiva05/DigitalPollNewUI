@@ -10,7 +10,7 @@ import { SurveyComponent } from './components/survey/survey.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
-
+import {DataService} from '../app/components/data.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { FormsModule }   from '@angular/forms';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    SurveyComponent,
+    SurveyComponent
     
   ],
   imports: [
@@ -29,7 +29,7 @@ import { FormsModule }   from '@angular/forms';
     ReactiveFormsModule,
     FormsModule      
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

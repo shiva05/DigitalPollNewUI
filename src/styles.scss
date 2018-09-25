@@ -374,8 +374,12 @@ a {
         &-wrap {
           background: $header-foreground;
           padding: 5px 50px 20px 50px;
-          margin-left: 15px;
-          margin-right: 15px;
+          position: -webkit-sticky;
+          position: sticky;
+          top: -20px;
+          z-index:1;
+         // margin-left: 15px;
+          //margin-right: 15px;
         }
 
         counter-reset: step;
@@ -469,7 +473,7 @@ a {
         }
 
         .checkbox {
-          margin-bottom: 15px;
+          margin-bottom: 0px;
         }
 
         textarea {
