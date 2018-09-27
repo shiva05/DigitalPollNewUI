@@ -5,6 +5,8 @@ import { map, catchError } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { DataService } from "../data.service";
 
+
+
 class candidate{
    
 }
@@ -16,7 +18,8 @@ interface Constitute {
     ConstituencyName: any;
   
 }
-class stateClass{
+interface stateClass{
+    StateID:any;
 }
 class landingPageData{
 
@@ -41,6 +44,7 @@ export class HomeComponent implements OnInit {
     StateId="";
     ConstituencyId="";
     message:any ={};
+    profileId :any;
     
   constructor(private httpClient:HttpClient,private formBuilder: FormBuilder,private data: DataService) {
     
@@ -56,20 +60,21 @@ export class HomeComponent implements OnInit {
     }
       
    ngOnInit() {
+    this.stateDetails=this.httpClient
+    .get<stateClass[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/GetAllstate");
     this.registerForm = this.formBuilder.group({
         FirstName: ['', Validators.required],       
         Email: ['', [Validators.required, Validators.email]],
         MobNumber: ['', [this.mobValidator]],
-        StateID: ['', [Validators.required]],
-        ConstituencyID:[''],
+        StateID: ['1', [Validators.required]],
+        ConstituencyID:['294'],
         PincodeID:[null],
         optionsRadios:[''],
         PhoneAuthTokenInd:[null],
        
     });
-   
-    this.stateDetails=this.httpClient
-            .get<stateClass[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/GetAllstate");
+    this.stateChange(1)
+    
 
     if(this.bypassDev==true)
     {
@@ -96,8 +101,13 @@ export class HomeComponent implements OnInit {
 
   }
   stateChange(e){
+    var stateId;
+      if(typeof e === 'object'){
       var $selStateIndex=e.selectedIndex;
-      var stateId = e[$selStateIndex].value;
+      stateId = e[$selStateIndex].value;
+      }
+      else
+      stateId=e;
     this.Constituency = this.httpClient
             .get<Constitute[]>("https://electionpollapi.azurewebsites.net/api/ElectionPoll/GetConstituency")
             .pipe(
@@ -126,10 +136,11 @@ export class HomeComponent implements OnInit {
         this.httpClient.post("https://electionpollapi.azurewebsites.net/api/ElectionPoll/SaveProfile", this.registerForm.value)
          .subscribe(             
              data => {   
-                 if(data>1)
+                 if(data>0)
                  {
                     console.log("success");
                     this.loadLandingPageData();   
+                    this.profileId=data;
                  }
                  if(data==0)
                  {
@@ -158,7 +169,8 @@ export class HomeComponent implements OnInit {
      }
      newMessage() {
         this.message["StateId"]=this.StateId;        
-        this.message["ConstituencyId"]=this.ConstituencyId;        
+        this.message["ConstituencyId"]=this.ConstituencyId;
+        this.message["ProfileId"]=this.profileId;
         this.data.changeMessage(this.message)       
       }
      showAuthError(){

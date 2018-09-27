@@ -96,7 +96,7 @@
                                         <span>47%</span>
                                     </div>
                                     <div class="member-tile-btn">
-                                        <a href="javascript:void(0)" id={{candidate.ElectoralPartyMemberID}} (click)=handleMlaSelect($event) class="btn btn-primary">Select</a>
+                                        <a href="javascript:void(0)" id={{candidate.ElectoralPartyMemberID}} (click)="handleMlaSelect($event);selectedMlaCandidate($event)" class="btn btn-primary">Select</a>
                                     </div>
                                 </div>
                                 </div>
@@ -124,7 +124,7 @@
                                 <div class="clearfix"></div>
                                 <div class="btns">
                                     <div class="btns-left">
-                                        <a href="#" class="btn btn-default">Cancel</a>
+                                        <a href="javascript:void(0)" (click)=clearMlaSelection() class="btn btn-default">Cancel</a>
                                     </div>
                                     <div class="btns-right">
                                         <a href="javascript:void(0)" class="btn btn-primary" (click)="handleMlaData();setSelected(2)">Save & Next</a>
@@ -153,7 +153,7 @@
                                         <span>47%</span>
                                     </div>
                                     <div class="member-tile-btn">
-                                        <a href="javascript:void(0)" id={{candidate.ElectoralPartyMemberID}} class="btn btn-primary" (click)=handleMpSelect($event)>Select</a>
+                                        <a href="javascript:void(0)" id={{candidate.ElectoralPartyMemberID}} class="btn btn-primary" (click)=handleMpSelect($event);selectedMpCandidate($event)>Select</a>
                                     </div>
                                 </div>
                                 </div>
@@ -181,7 +181,7 @@
                                 <div class="clearfix"></div>
                                 <div class="btns">
                                     <div class="btns-left">
-                                        <a href="#" class="btn btn-default">Cancel</a>
+                                        <a href="javascript:void(0)" class="btn btn-default" (click)=clearMpSelection()>Cancel</a>
                                     </div>
                                     <div class="btns-right">
                                         <a href="javascript:void(0)" (click)="handleMpData();setSelected(3)" class="btn btn-primary">Save & Next</a>
@@ -190,7 +190,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="inner-container row">
+                    <div class="inner-container row Summary-wrapper">
                         <div class="summary-wrap" *ngIf="candidateSelected">
                             <h1>Summary</h1>
                             <div class="selectedMLA-wrapper" *ngIf="mlaSelected">
@@ -299,11 +299,11 @@
                             </div>
                             <div class="btns">
                                 <div class="btns-left">
-                                    <a href="#" class="btn btn-default">Cancel</a>
+                                    <!-- <a href="#" class="btn btn-default">Cancel</a> -->
                                 </div>
                                 <div class="btns-right">
-                                    <a href="#" class="btn btn-default">Previous</a>
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#voteSuccess">Submit</a>
+                                    <!-- <a href="#" class="btn btn-default">Previous</a> -->
+                                    <a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#voteSuccess" (click)=submitVote()>Submit</a>
                                 </div>
                             </div>
                         </div>
@@ -601,3 +601,57 @@
     </footer>
 </div>
 <div class="modal fade" id="voteSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h2 class="modal-title">Voting is successfully done</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p><span>State:</span> Andhra Pradesh</p>
+                        <p><span>Constituency:</span> Kuppam</p>
+                        <div class="member" >
+                            <div>
+                                <h3 class="titleAlign">MLA</h3>
+                            <div class="member-tile active" *ngFor="let MlaDetails of SelectedMlaArr">
+                                <div class="member-tile-img-wrap">
+                                    <img class="member-tile-img" src="../../../assets/images/candidates/{{MlaDetails.EPMemberImg}}" alt="{{MlaDetails.CandidateName}}">
+                                    <img class="member-tile-img-flag" src="../../../assets/images/partyFlags/{{MlaDetails.ElectoralPartyImage}}" alt="{{MlaDetails.ElectoralPartyName}}">
+                                </div>
+                                <div class="member-content-wrap">
+                                     <h3>{{MlaDetails.CandidateName}}</h3>
+                                </div>
+                                <div class="member-tile-footer">
+                                    <div class="member-tile-likes">
+                                        <img src="../../../assets/images/like-symbol.png" alt="Like">
+                                        <span>47%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div>
+                                    <h3 class="titleAlign">MP</h3>
+                            <div class="member-tile active" *ngFor="let MpDetails of SelectedMpArr">
+                                <div class="member-tile-img-wrap">
+                                        <img class="member-tile-img" src="../../../assets/images/candidates/{{MpDetails.EPMemberImg}}" alt="{{MpDetails.CandidateName}}">
+                                        <img class="member-tile-img-flag" src="../../../assets/images/partyFlags/{{MpDetails.ElectoralPartyImage}}" alt="{{MpDetails.ElectoralPartyName}}">
+                                </div>
+                                <div class="member-content-wrap">
+                                        <h3>{{MpDetails.CandidateName}}</h3>
+                                   </div>
+                                <div class="member-tile-footer">
+                                    <div class="member-tile-likes">
+                                        <img src="../../../assets/images/like-symbol.png" alt="Like">
+                                        <span>24%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close &amp; Back to home</button>
+                    </div>
+                </div>
+            </div>
+    </div>

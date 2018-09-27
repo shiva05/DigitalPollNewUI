@@ -53,11 +53,14 @@ html, body, .poll-container {
   .checkbox {
     margin-top: 4.8rem;
   }
-
+  .radio{
+    margin-left:5px;
+    .col-xs-4{margin-bottom: 5px;}
+  }
   &-footer {
-    text-align: left;
+    text-align: center;
     padding: 15px 30px;
-
+    /*border:0px;*/
     .btn {
       margin-right: 15px;
     }
@@ -94,10 +97,13 @@ a {
     cursor: context-menu;
     min-height: 380px;
 
-    &:hover, &.active {
+    &:hover, &.active{
       border: 3px solid #58A4B0;
     }
-
+     &.activeCandidate {
+      border: 3px solid #58A4B0;
+      background-color: #efefef;
+    }
     &-img {
 
       &-wrap {
@@ -159,6 +165,7 @@ a {
           span {
             font-weight: 600;
           }
+          
         }
 
         &-btn {
@@ -177,7 +184,7 @@ a {
 .poll-container {
   display: flex;
   flex-flow: column;
-
+  width: 100%;
   .navbar, footer {
     padding-left: 50px;
     padding-right: 50px;
@@ -198,13 +205,13 @@ a {
     color: #000;
     border-radius: 0px;
     margin-bottom: 0;
-    min-height: 100px;
+    min-height: 80px;
     flex: 0 0 auto;
     width: 100%;
 
     &-brand {
       font-family: 'Oswald', sans-serif;
-      font-size: 4.5rem;
+      font-size: 3.5rem;
       color: #fff !important;
       height: auto;
       line-height: 4rem;
@@ -220,7 +227,7 @@ a {
     }
 
     .navbar-header {
-      padding-top: 15px;
+      padding-top: 0px;
     }
 
     .navbar-brand {
@@ -232,7 +239,7 @@ a {
       margin: 0;
 
       li {
-        padding: 30px 15px;
+        padding: 15px 15px 0px 15px;
 
         a {
           font-size: 1.8rem;
@@ -319,6 +326,7 @@ a {
 
     h1 {
       margin-bottom: 2rem;
+ font-size: 3rem;
     }
 
     .section-container {
@@ -373,17 +381,17 @@ a {
       .progressbar {
         &-wrap {
           background: $header-foreground;
-          padding: 5px 50px 20px 50px;
+         padding: 5px 15px;
           position: -webkit-sticky;
           position: sticky;
           top: -20px;
           z-index:1;
-         // margin-left: 15px;
-          //margin-right: 15px;
+        //  margin-left: 15px;
+        // margin-right: 15px;
         }
 
         counter-reset: step;
-        margin: 50px 0 0 0;
+        margin: 10px 0 0 0;
         font-family: 'Open Sans', sans-serif;
 
         li {
@@ -400,18 +408,21 @@ a {
             left: 0;
             font-weight: bold;
             font-size: 13px;
+	    display: none;
           }
 
           label {
-            margin-top: 5px;
+              margin-top: 0px;
+                        font-size: 14px;
+                        font-weight: 400;
           }
 
           &:before {
             content: counter(step);
             counter-increment: step;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
+            width: 26px;
+            height: 26px;
+            line-height: 26px;
             border: 1px solid #ddd;
             display: block;
             text-align: center;
@@ -423,16 +434,17 @@ a {
             // visibility: hidden;
             right: 50%;
             margin-right: -15px;
+            font-size: 14px;
           }
 
           &:after {
             content: '';
             position: absolute;
             width: 100%;
-            height: 13px;
+            height: 8px;
             background: #D8DBE2;
             border: 1px solid #ddd;
-            top: 9px;
+            top: 10px;
             left: 0%;
           }
 
@@ -455,6 +467,8 @@ a {
           color: #58A4B0;
 
           &:before {
+ 	    background:  #58A4B0;
+            color: #fff;
             border-color: #58A4B0;
             visibility: visible;
           }
@@ -462,6 +476,9 @@ a {
           &:after {
             background-color: #58A4B0;
           }
+	   label{
+                        font-weight: bold;
+                    }
         }
       }
 
@@ -498,6 +515,7 @@ a {
 
         h2 {
           margin-left: 15px;
+font-size: 2.8rem;
         }
       }
 
@@ -536,6 +554,9 @@ a {
       flex: 1 1 auto;
       width: 400px;
       padding: 0 30px;
+ h2{
+                font-size:2.8rem;
+            }
 
       .btn {
         margin: 0;
@@ -625,21 +646,22 @@ a {
     display: flex;
     flex: 1 0 auto;
     background-color: #ECECEC;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
     position: relative;
     align-items: center;
-    border-bottom: 10px solid $app-theme-color;
+    border-top: 2px solid $app-theme-color;
 
     .navbar-brand {
       color: $foreground-color !important;
-      font-size: 3rem;
-      line-height: 3rem;
+      font-size: 1.8rem;
+      line-height: 1.8rem;
     }
 
     p {
       margin-left: auto;
       margin-bottom: 0;
+font-size: 14px;
     }
 
     @media (max-width: 768px) {
@@ -764,6 +786,7 @@ a {
         justify-content: center;
       }
     }
+    .titleAlign{margin-top:0px;margin-left:15px;}
   }
 }
 
